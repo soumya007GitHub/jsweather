@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Weather</title>
+    <style>
+        *{
+            padding : 0;
+            margin : 0;
+            box-sizing: border-box;
+        }
+        body{
+            background-image: url('image.jpg');
+            background-repeat: no-repeat;
+            background-size: cover;
+            height : 100vh;
+            display : flex;
+            justify-content: center;
+            align-items: center;
+        }
+        .weather{
+            width : 400px;
+            height : 500px;
+            background-color: rgb(0, 0, 0, 0.4);
+            border-radius : 30px;
+            padding : 10px;
+            text-align: center;
+        }
+        #city{
+            width : 100%;
+            padding : 10px;
+            height : 40px;
+            font-size: 20px;
+            border : none;
+            outline : none;
+            border-radius: 30px;
+            text-align: center;
+            background-color: rgb(6, 155, 160);
+            color : white;
+        }
+        h1{
+            font-size: 40px !important;
+        }
+        .details{
+            margin: 10px;
+            color : white;
+            text-align: center;
+            font-family: 'Times New Roman', Times, serif;
+            font-size: 20px;
+        }
+        #icon{
+           width : 200px;
+           margin : 0px auto;
+        }
+    </style>
+</head>
+<body onload="weather()">
+    <div class="weather">
+        <input type="text" id="city" value="Cuttack" onchange="weather()" autocomplete="off">
+        <h1 class="details"><span id="degree">30</span><sup>o</sup> Celcius</h1>
+        <p class="details">Humidity :- <span id="humidity"> 20</span></p>
+        <p class="details">Max Temperature :-<span id="maxTemp"> 33</span></p>
+        <p class="details">Min Temperature :-<span id="minTemp"> 25</span></p>
+        <p class="details">Wind Speed :-<span id="windSpeed"> 2.5</span></p>
+        <img src="sunny.png" id="icon">
+    </div>
+    <script>
+        function weather(){
+        let city = document.getElementById('city').value;
+  const url = 'https://weather-by-api-ninjas.p.rapidapi.com/v1/weather?city='+city;
+  console.log(url);
+const options = {
+	method: 'GET',
+	headers: {
+		'X-RapidAPI-Key': '26992c4861msh767ede386d71637p14a9c2jsne4989c04ac0b',
+		'X-RapidAPI-Host': 'weather-by-api-ninjas.p.rapidapi.com'
+	}
+};
+async function demo(){
+try {
+	const response = await fetch(url, options);
+	const result = await response.json();
+    console.log(result);
+    degree.innerHTML = result.temp;
+    humidity.innerHTML = result.humidity;
+    maxTemp.innerHTML = result.max_temp;
+    minTemp.innerHTML = result.min_temp
+    windSpeed.innerHTML = result.wind_speed;
+} catch (error) {
+	console.error(error);
+}
+}
+demo();
+        }
+    </script>
+</body>
+</html>
